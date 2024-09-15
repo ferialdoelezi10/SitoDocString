@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Sito 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="smartController" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Sito
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">smartController</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ConfidenceDecoder</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.ConfidenceDecoder.forward"><code class="docutils literal notranslate"><span class="pre">ConfidenceDecoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.HighDimKernelRegressor"><code class="docutils literal notranslate"><span class="pre">HighDimKernelRegressor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.HighDimKernelRegressor.forward"><code class="docutils literal notranslate"><span class="pre">HighDimKernelRegressor.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.KernelRegressionLoss"><code class="docutils literal notranslate"><span class="pre">KernelRegressionLoss</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.KernelRegressionLoss.forward"><code class="docutils literal notranslate"><span class="pre">KernelRegressionLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.MultiClassFlowClassifier"><code class="docutils literal notranslate"><span class="pre">MultiClassFlowClassifier</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.MultiClassFlowClassifier.forward"><code class="docutils literal notranslate"><span class="pre">MultiClassFlowClassifier.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.MulticlassPrototypicalClassifier"><code class="docutils literal notranslate"><span class="pre">MulticlassPrototypicalClassifier</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.forward"><code class="docutils literal notranslate"><span class="pre">MulticlassPrototypicalClassifier.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.get_centroids"><code class="docutils literal notranslate"><span class="pre">MulticlassPrototypicalClassifier.get_centroids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.get_oh_labels"><code class="docutils literal notranslate"><span class="pre">MulticlassPrototypicalClassifier.get_oh_labels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.RecurrentModel"><code class="docutils literal notranslate"><span class="pre">RecurrentModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.RecurrentModel.forward"><code class="docutils literal notranslate"><span class="pre">RecurrentModel.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.SimmilarityNet"><code class="docutils literal notranslate"><span class="pre">SimmilarityNet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.SimmilarityNet.forward"><code class="docutils literal notranslate"><span class="pre">SimmilarityNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier"><code class="docutils literal notranslate"><span class="pre">ThreeStreamMulticlassFlowClassifier</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier.forward"><code class="docutils literal notranslate"><span class="pre">ThreeStreamMulticlassFlowClassifier.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smartController.neural_modules.TwoStreamMulticlassFlowClassifier"><code class="docutils literal notranslate"><span class="pre">TwoStreamMulticlassFlowClassifier</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartController.neural_modules.TwoStreamMulticlassFlowClassifier.forward"><code class="docutils literal notranslate"><span class="pre">TwoStreamMulticlassFlowClassifier.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sito</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">smartController</a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/smartController.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p id="module-smartController.neural_modules">This file is part of the “Smartville” project.
+Copyright (c) 2024 University of Insubria
+Licensed under the Apache License 2.0.
+For the full text of the license, visit: <a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>This script implements several deep learning models and classifiers using PyTorch, including recurrent models and
+multi-stream classifiers for network intrusion detection.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.ConfidenceDecoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">ConfidenceDecoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#ConfidenceDecoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.ConfidenceDecoder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A confidence decoder that calculates the confidence scores for predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.ConfidenceDecoder.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#ConfidenceDecoder.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.ConfidenceDecoder.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass that computes confidence scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scores</strong> (<em>torch.Tensor</em>) – Prediction scores.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Confidence indicators.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.HighDimKernelRegressor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">HighDimKernelRegressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_heads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_concat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leaky_relu_negative_slope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">share_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#HighDimKernelRegressor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.HighDimKernelRegressor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A high-dimensional kernel regressor for computing pairwise similarity between latent vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_features</strong> (<em>int</em>) – Number of input features.</p></li>
+<li><p><strong>out_features</strong> (<em>int</em>) – Number of output features.</p></li>
+<li><p><strong>n_heads</strong> (<em>int</em>) – Number of attention heads.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.HighDimKernelRegressor.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hiddens</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#HighDimKernelRegressor.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.HighDimKernelRegressor.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass for kernel regression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hiddens</strong> (<em>torch.Tensor</em>) – Latent hidden representations.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(hidden representations, kernel matrix).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.KernelRegressionLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">KernelRegressionLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repulsive_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attractive_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#KernelRegressionLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.KernelRegressionLoss" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Implements the kernel regression loss function, including repulsive and attractive forces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>repulsive_weight</strong> (<em>int</em>) – Weight for the repulsive force in the loss function.</p></li>
+<li><p><strong>attractive_weight</strong> (<em>int</em>) – Weight for the attractive force in the loss function.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.KernelRegressionLoss.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline_kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicted_kernel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#KernelRegressionLoss.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.KernelRegressionLoss.forward" title="Link to this definition"></a></dt>
+<dd><p>Compute the kernel regression loss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>baseline_kernel</strong> (<em>torch.Tensor</em>) – Baseline kernel matrix.</p></li>
+<li><p><strong>predicted_kernel</strong> (<em>torch.Tensor</em>) – Predicted kernel matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loss value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.MultiClassFlowClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">MultiClassFlowClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kr_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MultiClassFlowClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MultiClassFlowClassifier" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Multi-class classifier combining a recurrent model with kernel regression and prototypical classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_size</strong> (<em>int</em>) – Number of input features.</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Number of hidden units in the recurrent model.</p></li>
+<li><p><strong>dropout_prob</strong> (<em>float</em>) – Dropout probability.</p></li>
+<li><p><strong>kr_heads</strong> (<em>int</em>) – Number of heads for kernel regression.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.MultiClassFlowClassifier.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curr_known_attack_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MultiClassFlowClassifier.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MultiClassFlowClassifier.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass through the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>torch.Tensor</em>) – Input data tensor.</p></li>
+<li><p><strong>labels</strong> (<em>torch.Tensor</em>) – True class labels.</p></li>
+<li><p><strong>curr_known_attack_count</strong> (<em>int</em>) – Number of known attack classes.</p></li>
+<li><p><strong>query_mask</strong> (<em>torch.Tensor</em>) – Boolean mask indicating which samples are queries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(logits, hidden representations, predicted kernel).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.MulticlassPrototypicalClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">MulticlassPrototypicalClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MulticlassPrototypicalClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MulticlassPrototypicalClassifier" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Classifier implementing Prototypical Networks for multi-class classification tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.MulticlassPrototypicalClassifier.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden_vectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">known_attacks_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MulticlassPrototypicalClassifier.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.forward" title="Link to this definition"></a></dt>
+<dd><p>Perform forward pass for classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hidden_vectors</strong> (<em>torch.Tensor</em>) – Latent vectors of the input data.</p></li>
+<li><p><strong>labels</strong> (<em>torch.Tensor</em>) – True class labels.</p></li>
+<li><p><strong>known_attacks_count</strong> (<em>int</em>) – Number of known attack classes.</p></li>
+<li><p><strong>query_mask</strong> (<em>torch.Tensor</em>) – Boolean mask indicating which samples are queries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scores for each query sample.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.MulticlassPrototypicalClassifier.get_centroids">
+<span class="sig-name descname"><span class="pre">get_centroids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden_vectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onehot_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MulticlassPrototypicalClassifier.get_centroids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.get_centroids" title="Link to this definition"></a></dt>
+<dd><p>Calculate class centroids from support set latent vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hidden_vectors</strong> (<em>torch.Tensor</em>) – Latent vectors of the support set.</p></li>
+<li><p><strong>onehot_labels</strong> (<em>torch.Tensor</em>) – One-hot encoded class labels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Centroids of each class.
+torch.Tensor: Boolean mask indicating missing clusters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.MulticlassPrototypicalClassifier.get_oh_labels">
+<span class="sig-name descname"><span class="pre">get_oh_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decimal_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_way</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#MulticlassPrototypicalClassifier.get_oh_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.MulticlassPrototypicalClassifier.get_oh_labels" title="Link to this definition"></a></dt>
+<dd><p>Convert labels to one-hot encoding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>decimal_labels</strong> (<em>torch.Tensor</em>) – Class labels in decimal format.</p></li>
+<li><p><strong>n_way</strong> (<em>int</em>) – Number of classes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>One-hot encoded labels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.RecurrentModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">RecurrentModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#RecurrentModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.RecurrentModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Implements a recurrent neural network using GRU layers. This is used to process sequential data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_size</strong> (<em>int</em>) – Number of input features.</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Number of hidden units in the GRU.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.RecurrentModel.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#RecurrentModel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.RecurrentModel.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass through the GRU layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – Input tensor of shape (batch_size, seq_length, input_size).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor of shape (batch_size, hidden_size).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.SimmilarityNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">SimmilarityNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#SimmilarityNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.SimmilarityNet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A neural network that computes the similarity between two vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>h_dim</strong> (<em>int</em>) – Dimensionality of the input hidden vectors.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.SimmilarityNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#SimmilarityNet.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.SimmilarityNet.forward" title="Link to this definition"></a></dt>
+<dd><p>Compute the similarity between two input vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x1</strong> (<em>torch.Tensor</em>) – First input vector.</p></li>
+<li><p><strong>x2</strong> (<em>torch.Tensor</em>) – Second input vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Similarity score between the two vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.ThreeStreamMulticlassFlowClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">ThreeStreamMulticlassFlowClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second_stream_input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">third_stream_input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kr_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#ThreeStreamMulticlassFlowClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A three-stream classifier combining data from three sources using recurrent models and kernel regression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow_input_size</strong> (<em>int</em>) – Size of the flow input features.</p></li>
+<li><p><strong>second_stream_input_size</strong> (<em>int</em>) – Size of the second stream input features.</p></li>
+<li><p><strong>third_stream_input_size</strong> (<em>int</em>) – Size of the third stream input features.</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Number of hidden units in the recurrent model.</p></li>
+<li><p><strong>dropout_prob</strong> (<em>float</em>) – Dropout probability.</p></li>
+<li><p><strong>kr_heads</strong> (<em>int</em>) – Number of heads for kernel regression.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.ThreeStreamMulticlassFlowClassifier.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second_domain_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">third_domain_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curr_known_attack_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#ThreeStreamMulticlassFlowClassifier.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass combining three streams of features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flows</strong> (<em>torch.Tensor</em>) – Flow input data.</p></li>
+<li><p><strong>second_domain_feats</strong> (<em>torch.Tensor</em>) – Second stream input data.</p></li>
+<li><p><strong>third_domain_feats</strong> (<em>torch.Tensor</em>) – Third stream input data.</p></li>
+<li><p><strong>labels</strong> (<em>torch.Tensor</em>) – True class labels.</p></li>
+<li><p><strong>curr_known_attack_count</strong> (<em>int</em>) – Number of known attack classes.</p></li>
+<li><p><strong>query_mask</strong> (<em>torch.Tensor</em>) – Boolean mask indicating which samples are queries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(logits, hidden representations, predicted kernel).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smartController.neural_modules.TwoStreamMulticlassFlowClassifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smartController.neural_modules.</span></span><span class="sig-name descname"><span class="pre">TwoStreamMulticlassFlowClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second_stream_input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout_prob</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kr_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#TwoStreamMulticlassFlowClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.TwoStreamMulticlassFlowClassifier" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A two-stream classifier combining data from two sources using recurrent models and kernel regression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow_input_size</strong> (<em>int</em>) – Size of the flow input features.</p></li>
+<li><p><strong>second_stream_input_size</strong> (<em>int</em>) – Size of the second stream input features.</p></li>
+<li><p><strong>hidden_size</strong> (<em>int</em>) – Number of hidden units in the recurrent model.</p></li>
+<li><p><strong>dropout_prob</strong> (<em>float</em>) – Dropout probability.</p></li>
+<li><p><strong>kr_heads</strong> (<em>int</em>) – Number of heads for kernel regression.</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – Device to run the model (‘cpu’ or ‘cuda’).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="smartController.neural_modules.TwoStreamMulticlassFlowClassifier.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">second_domain_feats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curr_known_attack_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartController/neural_modules.html#TwoStreamMulticlassFlowClassifier.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartController.neural_modules.TwoStreamMulticlassFlowClassifier.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward pass combining two streams of features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flows</strong> (<em>torch.Tensor</em>) – Flow input data.</p></li>
+<li><p><strong>second_domain_feats</strong> (<em>torch.Tensor</em>) – Second stream input data.</p></li>
+<li><p><strong>labels</strong> (<em>torch.Tensor</em>) – True class labels.</p></li>
+<li><p><strong>curr_known_attack_count</strong> (<em>int</em>) – Number of known attack classes.</p></li>
+<li><p><strong>query_mask</strong> (<em>torch.Tensor</em>) – Boolean mask indicating which samples are queries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(logits, hidden representations, predicted kernel).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="smartController" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, aldo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

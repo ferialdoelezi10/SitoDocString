@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smartController.neural_modules &mdash; Sito 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Sito
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">smartController</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Sito</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">smartController.neural_modules</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for smartController.neural_modules</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file is part of the &quot;Smartville&quot; project.</span>
+<span class="sd">Copyright (c) 2024 University of Insubria</span>
+<span class="sd">Licensed under the Apache License 2.0.</span>
+<span class="sd">For the full text of the license, visit: https://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="sd">This script implements several deep learning models and classifiers using PyTorch, including recurrent models and</span>
+<span class="sd">multi-stream classifiers for network intrusion detection.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+
+<div class="viewcode-block" id="RecurrentModel">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.RecurrentModel">[docs]</a>
+<span class="k">class</span> <span class="nc">RecurrentModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements a recurrent neural network using GRU layers. This is used to process sequential data.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): Number of input features.</span>
+<span class="sd">        hidden_size (int): Number of hidden units in the GRU.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RecurrentModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gru</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">GRU</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RecurrentModel.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.RecurrentModel.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass through the GRU layer.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): Input tensor of shape (batch_size, seq_length, input_size).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Output tensor of shape (batch_size, hidden_size).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MulticlassPrototypicalClassifier">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MulticlassPrototypicalClassifier">[docs]</a>
+<span class="k">class</span> <span class="nc">MulticlassPrototypicalClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classifier implementing Prototypical Networks for multi-class classification tasks.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MulticlassPrototypicalClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+
+<div class="viewcode-block" id="MulticlassPrototypicalClassifier.get_oh_labels">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MulticlassPrototypicalClassifier.get_oh_labels">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_oh_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decimal_labels</span><span class="p">,</span> <span class="n">n_way</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert labels to one-hot encoding.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            decimal_labels (torch.Tensor): Class labels in decimal format.</span>
+<span class="sd">            n_way (int): Number of classes.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: One-hot encoded labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">labels_onehot</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">decimal_labels</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_way</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">labels_onehot</span> <span class="o">=</span> <span class="n">labels_onehot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">decimal_labels</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">labels_onehot</span></div>
+
+
+<div class="viewcode-block" id="MulticlassPrototypicalClassifier.get_centroids">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MulticlassPrototypicalClassifier.get_centroids">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_vectors</span><span class="p">,</span> <span class="n">onehot_labels</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate class centroids from support set latent vectors.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            hidden_vectors (torch.Tensor): Latent vectors of the support set.</span>
+<span class="sd">            onehot_labels (torch.Tensor): One-hot encoded class labels.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Centroids of each class.</span>
+<span class="sd">            torch.Tensor: Boolean mask indicating missing clusters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cluster_agg</span> <span class="o">=</span> <span class="n">onehot_labels</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">hidden_vectors</span>
+        <span class="n">samples_per_cluster</span> <span class="o">=</span> <span class="n">onehot_labels</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">centroids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cluster_agg</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">missing_clusters</span> <span class="o">=</span> <span class="n">samples_per_cluster</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">existent_centroids</span> <span class="o">=</span> <span class="n">cluster_agg</span><span class="p">[</span><span class="o">~</span><span class="n">missing_clusters</span><span class="p">]</span> <span class="o">/</span> <span class="n">samples_per_cluster</span><span class="p">[</span><span class="o">~</span><span class="n">missing_clusters</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">centroids</span><span class="p">[</span><span class="o">~</span><span class="n">missing_clusters</span><span class="p">]</span> <span class="o">=</span> <span class="n">existent_centroids</span>
+        <span class="k">return</span> <span class="n">centroids</span><span class="p">,</span> <span class="n">missing_clusters</span></div>
+
+
+<div class="viewcode-block" id="MulticlassPrototypicalClassifier.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MulticlassPrototypicalClassifier.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_vectors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">known_attacks_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform forward pass for classification.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            hidden_vectors (torch.Tensor): Latent vectors of the input data.</span>
+<span class="sd">            labels (torch.Tensor): True class labels.</span>
+<span class="sd">            known_attacks_count (int): Number of known attack classes.</span>
+<span class="sd">            query_mask (torch.Tensor): Boolean mask indicating which samples are queries.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Scores for each query sample.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">oh_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_oh_labels</span><span class="p">(</span><span class="n">decimal_labels</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">long</span><span class="p">(),</span> <span class="n">n_way</span><span class="o">=</span><span class="n">known_attacks_count</span><span class="p">)</span>
+        <span class="n">centroids</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_centroids</span><span class="p">(</span><span class="n">hidden_vectors</span><span class="p">[</span><span class="o">~</span><span class="n">query_mask</span><span class="p">],</span> <span class="n">oh_labels</span><span class="p">[</span><span class="o">~</span><span class="n">query_mask</span><span class="p">])</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">hidden_vectors</span><span class="p">[</span><span class="n">query_mask</span><span class="p">],</span> <span class="n">centroids</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">scores</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MultiClassFlowClassifier">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MultiClassFlowClassifier">[docs]</a>
+<span class="k">class</span> <span class="nc">MultiClassFlowClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Multi-class classifier combining a recurrent model with kernel regression and prototypical classification.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): Number of input features.</span>
+<span class="sd">        hidden_size (int): Number of hidden units in the recurrent model.</span>
+<span class="sd">        dropout_prob (float): Dropout probability.</span>
+<span class="sd">        kr_heads (int): Number of heads for kernel regression.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">dropout_prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">kr_heads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiClassFlowClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span> <span class="o">=</span> <span class="n">HighDimKernelRegressor</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_heads</span><span class="o">=</span><span class="n">kr_heads</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="n">dropout_prob</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">MulticlassPrototypicalClassifier</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MultiClassFlowClassifier.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.MultiClassFlowClassifier.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass through the model.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): Input data tensor.</span>
+<span class="sd">            labels (torch.Tensor): True class labels.</span>
+<span class="sd">            curr_known_attack_count (int): Number of known attack classes.</span>
+<span class="sd">            query_mask (torch.Tensor): Boolean mask indicating which samples are queries.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (logits, hidden representations, predicted kernel).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizer</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">hiddens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span><span class="p">(</span><span class="n">hiddens</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">hiddens</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">logits</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TwoStreamMulticlassFlowClassifier">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.TwoStreamMulticlassFlowClassifier">[docs]</a>
+<span class="k">class</span> <span class="nc">TwoStreamMulticlassFlowClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A two-stream classifier combining data from two sources using recurrent models and kernel regression.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        flow_input_size (int): Size of the flow input features.</span>
+<span class="sd">        second_stream_input_size (int): Size of the second stream input features.</span>
+<span class="sd">        hidden_size (int): Number of hidden units in the recurrent model.</span>
+<span class="sd">        dropout_prob (float): Dropout probability.</span>
+<span class="sd">        kr_heads (int): Number of heads for kernel regression.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow_input_size</span><span class="p">,</span> <span class="n">second_stream_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">dropout_prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">kr_heads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TwoStreamMulticlassFlowClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">flow_input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">flow_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">second_stream_input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">second_stream_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span> <span class="o">=</span> <span class="n">HighDimKernelRegressor</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">hidden_size</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_heads</span><span class="o">=</span><span class="n">kr_heads</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="n">dropout_prob</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">MulticlassPrototypicalClassifier</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TwoStreamMulticlassFlowClassifier.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.TwoStreamMulticlassFlowClassifier.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flows</span><span class="p">,</span> <span class="n">second_domain_feats</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass combining two streams of features.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            flows (torch.Tensor): Flow input data.</span>
+<span class="sd">            second_domain_feats (torch.Tensor): Second stream input data.</span>
+<span class="sd">            labels (torch.Tensor): True class labels.</span>
+<span class="sd">            curr_known_attack_count (int): Number of known attack classes.</span>
+<span class="sd">            query_mask (torch.Tensor): Boolean mask indicating which samples are queries.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (logits, hidden representations, predicted kernel).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">flows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_normalizer</span><span class="p">(</span><span class="n">flows</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">second_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_normalizer</span><span class="p">(</span><span class="n">second_domain_feats</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">flows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_rnn</span><span class="p">(</span><span class="n">flows</span><span class="p">)</span>
+        <span class="n">second_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_rnn</span><span class="p">(</span><span class="n">second_domain_feats</span><span class="p">)</span>
+
+        <span class="n">hiddens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">flows</span><span class="p">,</span> <span class="n">second_domain_feats</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span><span class="p">(</span><span class="n">hiddens</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">hiddens</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">logits</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span></div>
+</div>
+
+
+
+<span class="k">class</span> <span class="nc">ThreeStreamMulticlassFlowClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A three-stream classifier combining data from three sources using recurrent models and kernel regression.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        flow_input_size (int): Size of the flow input features.</span>
+<span class="sd">        second_stream_input_size (int): Size of the second stream input features.</span>
+<span class="sd">        third_stream_input_size (int): Size of the third stream input features.</span>
+<span class="sd">        hidden_size (int): Number of hidden units in the recurrent model.</span>
+<span class="sd">        dropout_prob (float): Dropout probability.</span>
+<span class="sd">        kr_heads (int): Number of heads for kernel regression.</span>
+<span class="sd">        deviceMi scuso per l&#39;interruzione. Proseguo con i docstring per il resto del codice:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ThreeStreamMulticlassFlowClassifier">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier">[docs]</a>
+<span class="k">class</span> <span class="nc">ThreeStreamMulticlassFlowClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A three-stream classifier combining data from three sources using recurrent models and kernel regression.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        flow_input_size (int): Size of the flow input features.</span>
+<span class="sd">        second_stream_input_size (int): Size of the second stream input features.</span>
+<span class="sd">        third_stream_input_size (int): Size of the third stream input features.</span>
+<span class="sd">        hidden_size (int): Number of hidden units in the recurrent model.</span>
+<span class="sd">        dropout_prob (float): Dropout probability.</span>
+<span class="sd">        kr_heads (int): Number of heads for kernel regression.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flow_input_size</span><span class="p">,</span> <span class="n">second_stream_input_size</span><span class="p">,</span> <span class="n">third_stream_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">dropout_prob</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">kr_heads</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ThreeStreamMulticlassFlowClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">flow_input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flow_rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">flow_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">second_stream_input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">second_stream_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">third_stream_normalizer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">third_stream_input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">third_stream_rnn</span> <span class="o">=</span> <span class="n">RecurrentModel</span><span class="p">(</span><span class="n">third_stream_input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span> <span class="o">=</span> <span class="n">HighDimKernelRegressor</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">hidden_size</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">n_heads</span><span class="o">=</span><span class="n">kr_heads</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="n">dropout_prob</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">MulticlassPrototypicalClassifier</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ThreeStreamMulticlassFlowClassifier.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.ThreeStreamMulticlassFlowClassifier.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flows</span><span class="p">,</span> <span class="n">second_domain_feats</span><span class="p">,</span> <span class="n">third_domain_feats</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass combining three streams of features.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            flows (torch.Tensor): Flow input data.</span>
+<span class="sd">            second_domain_feats (torch.Tensor): Second stream input data.</span>
+<span class="sd">            third_domain_feats (torch.Tensor): Third stream input data.</span>
+<span class="sd">            labels (torch.Tensor): True class labels.</span>
+<span class="sd">            curr_known_attack_count (int): Number of known attack classes.</span>
+<span class="sd">            query_mask (torch.Tensor): Boolean mask indicating which samples are queries.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (logits, hidden representations, predicted kernel).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">flows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_normalizer</span><span class="p">(</span><span class="n">flows</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">second_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_normalizer</span><span class="p">(</span><span class="n">second_domain_feats</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">third_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">third_stream_normalizer</span><span class="p">(</span><span class="n">third_domain_feats</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">flows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_rnn</span><span class="p">(</span><span class="n">flows</span><span class="p">)</span>
+        <span class="n">second_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second_stream_rnn</span><span class="p">(</span><span class="n">second_domain_feats</span><span class="p">)</span>
+        <span class="n">third_domain_feats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">third_stream_rnn</span><span class="p">(</span><span class="n">third_domain_feats</span><span class="p">)</span>
+
+        <span class="n">hiddens</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">flows</span><span class="p">,</span> <span class="n">second_domain_feats</span><span class="p">,</span> <span class="n">third_domain_feats</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_regressor</span><span class="p">(</span><span class="n">hiddens</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">hiddens</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">curr_known_attack_count</span><span class="p">,</span> <span class="n">query_mask</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">logits</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">,</span> <span class="n">predicted_kernel</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ConfidenceDecoder">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.ConfidenceDecoder">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfidenceDecoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A confidence decoder that calculates the confidence scores for predictions.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConfidenceDecoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+
+<div class="viewcode-block" id="ConfidenceDecoder.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.ConfidenceDecoder.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scores</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass that computes confidence scores.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            scores (torch.Tensor): Prediction scores.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Confidence indicators.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">scores</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">unknown_indicators</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">unknown_indicators</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="KernelRegressionLoss">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.KernelRegressionLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">KernelRegressionLoss</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements the kernel regression loss function, including repulsive and attractive forces.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        repulsive_weight (int): Weight for the repulsive force in the loss function.</span>
+<span class="sd">        attractive_weight (int): Weight for the attractive force in the loss function.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repulsive_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">attractive_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">KernelRegressionLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r_w</span> <span class="o">=</span> <span class="n">repulsive_weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_w</span> <span class="o">=</span> <span class="n">attractive_weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+
+<div class="viewcode-block" id="KernelRegressionLoss.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.KernelRegressionLoss.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baseline_kernel</span><span class="p">,</span> <span class="n">predicted_kernel</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the kernel regression loss.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            baseline_kernel (torch.Tensor): Baseline kernel matrix.</span>
+<span class="sd">            predicted_kernel (torch.Tensor): Predicted kernel matrix.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Loss value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">repulsive_CE_term</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">baseline_kernel</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">predicted_kernel</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">repulsive_CE_term</span> <span class="o">=</span> <span class="n">repulsive_CE_term</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">attractive_CE_term</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">baseline_kernel</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">predicted_kernel</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">))</span>
+        <span class="n">attractive_CE_term</span> <span class="o">=</span> <span class="n">attractive_CE_term</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r_w</span> <span class="o">*</span> <span class="n">repulsive_CE_term</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a_w</span> <span class="o">*</span> <span class="n">attractive_CE_term</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SimmilarityNet">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.SimmilarityNet">[docs]</a>
+<span class="k">class</span> <span class="nc">SimmilarityNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A neural network that computes the similarity between two vectors.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        h_dim (int): Dimensionality of the input hidden vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimmilarityNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">h_dim</span><span class="p">,</span> <span class="n">h_dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">h_dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SimmilarityNet.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.SimmilarityNet.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the similarity between two input vectors.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            x1 (torch.Tensor): First input vector.</span>
+<span class="sd">            x2 (torch.Tensor): Second input vector.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: Similarity score between the two vectors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">input_to_symm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span>
+        <span class="n">symm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">input_to_symm</span><span class="p">)</span>
+        <span class="n">symm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">act</span><span class="p">(</span><span class="n">symm</span><span class="p">)</span>
+        <span class="n">symm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">symm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">symm</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="HighDimKernelRegressor">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.HighDimKernelRegressor">[docs]</a>
+<span class="k">class</span> <span class="nc">HighDimKernelRegressor</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A high-dimensional kernel regressor for computing pairwise similarity between latent vectors.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        in_features (int): Number of input features.</span>
+<span class="sd">        out_features (int): Number of output features.</span>
+<span class="sd">        n_heads (int): Number of attention heads.</span>
+<span class="sd">        device (str): Device to run the model (&#39;cpu&#39; or &#39;cuda&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">n_heads</span><span class="p">,</span> <span class="n">is_concat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">leaky_relu_negative_slope</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">share_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HighDimKernelRegressor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">similarity_network</span> <span class="o">=</span> <span class="n">SimmilarityNet</span><span class="p">(</span><span class="n">h_dim</span><span class="o">=</span><span class="n">in_features</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HighDimKernelRegressor.forward">
+<a class="viewcode-back" href="../../smartController.html#smartController.neural_modules.HighDimKernelRegressor.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hiddens</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forward pass for kernel regression.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            hiddens (torch.Tensor): Latent hidden representations.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (hidden representations, kernel matrix).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n_nodes</span> <span class="o">=</span> <span class="n">hiddens</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">h_pivot</span> <span class="o">=</span> <span class="n">hiddens</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h_interleave</span> <span class="o">=</span> <span class="n">hiddens</span><span class="o">.</span><span class="n">repeat_interleave</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">energies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">similarity_network</span><span class="p">(</span><span class="n">h_pivot</span><span class="p">,</span> <span class="n">h_interleave</span><span class="p">)</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">energies</span><span class="p">)</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">,</span> <span class="n">n_nodes</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">hiddens</span><span class="p">,</span> <span class="n">kernel</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, aldo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

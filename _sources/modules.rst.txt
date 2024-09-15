@@ -1,0 +1,7 @@
+smartController
+===============
+
+.. toctree::
+   :maxdepth: 4
+
+   smartController
